@@ -1,4 +1,4 @@
-package org.iconia.domain;
+package org.iconia.domain.HostManager;
 
 public class Team implements IntTeam {
     private int id;

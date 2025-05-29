@@ -1,4 +1,4 @@
-package org.iconia.domain;
+package org.iconia.domain.HostManager;
 
 public interface IntTeam {
     public int getId();
