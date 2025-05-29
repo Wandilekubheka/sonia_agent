@@ -1,35 +1,39 @@
 package org.iconia.domain;
 
 public class Team implements IntTeam {
+    private int id;
+    private String name;
+    private String[] members;
 
 
     @Override
     public int getId() {
-        return 0;
+        return id;
     }
 
     @Override
     public void setId(int id) {
-
+        this.id = id;
     }
 
     @Override
     public String getName() {
-        return "";
+        return name;
     }
 
     @Override
     public void setName(String name) {
-
+        this.name = name;
     }
 
     @Override
     public String[] getMembers() {
-        return new String[0];
+        return members;
     }
 
     @Override
     public void setMembers(String[] members) {
+        this.members = members;
     }
 
 
@@ -39,7 +43,5 @@ public class Team implements IntTeam {
         return  team.getName().equals(this.getName());
 
     }
-
-
 
 }
