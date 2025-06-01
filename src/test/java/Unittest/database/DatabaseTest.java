@@ -35,12 +35,25 @@ public class DatabaseTest {
             Team[] teams = db.getTeams(intTournaments[0]);
             assertNotNull(teams);
             assertTrue(teams.length > 0);
-
-
         } catch (SQLException e) {
             fail("SQLException was thrown: " + e.getMessage());
         }
+    }
 
+
+    @Test
+    public void testAddTournamentToDatabase() {
+        // testing if we can create team
+        DatabaseAccess db = new DatabaseAccess();
+        IntTournament intTournament = new IntTournament("retro","21 May 2025");
+        try{
+            int prevTournamentSize = db.getIntTournaments().length;
+            db.setTournament(intTournament);
+            int newTournamentSize = db.getIntTournaments().length;
+            assertEquals(prevTournamentSize + 1, newTournamentSize);
+        }catch (SQLException e){
+            fail("SQLException was thrown: " + e.getMessage());
+        }
     }
 
 }
