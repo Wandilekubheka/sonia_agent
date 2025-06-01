@@ -76,7 +76,7 @@ public class Team implements IntTeam {
 
     @Override
     public boolean isTeamComplete() {
-        return name != null && leaderNumber != null && instagram != null && tag != null;
+        return name != null && leaderNumber != null && instagram != null && tag != null && image != null;
     }
 
     @Override

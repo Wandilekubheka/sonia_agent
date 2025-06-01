@@ -56,4 +56,5 @@ public class DatabaseTest {
         }
     }
 
+    // need to test if I add a team without complete fields or tournament without complete fields
 }

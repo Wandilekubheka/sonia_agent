@@ -26,19 +26,25 @@ public class ChatManager {
     public boolean teamUpdated(String message) {
               if (messagesFromUser.isEmpty()) {
                 team.setTag(message);
-                feedbackMessage = "well done, please provide us your team instagram handler.";
+                feedbackMessage = ChatManagerFeedback.feedbackMessage2;
                 //update team members
                 messagesFromUser.add(message);
                 // might throw an unhandled error but we shall see.
             }else if (messagesFromUser.size() ==1) {
-                team.setInstagram(message);
-                feedbackMessage = "well done, please provide us your team logo.";
-                //update team members
-                messagesFromUser.add(message);
-                // might throw an unhandled error but we shall see.
-            }else if (messagesFromUser.size() ==2) {
+                  team.setName(message);
+                  feedbackMessage = ChatManagerFeedback.feedbackMessage3;
+                  //update team logo
+                  messagesFromUser.add(message);
+                  // might throw an unhandled error but we shall see.
+              }else if (messagesFromUser.size() ==2) {
+                  team.setInstagram(message);
+                  feedbackMessage = ChatManagerFeedback.feedbackMessage4;
+                  //update team logo
+                  messagesFromUser.add(message);
+                  // might throw an unhandled error but we shall see.
+              }else if (messagesFromUser.size() ==3) {
                 team.setLogo(stringToByte(message));
-                feedbackMessage = "successfully registered!";
+                feedbackMessage = ChatManagerFeedback.feedbackMessage5;
                 //update team members
                 messagesFromUser.add(message);
                 // might throw an unhandled error but we shall see.
@@ -47,8 +53,7 @@ public class ChatManager {
     }
 
     private byte[] stringToByte(String string) {
-
-        return null;
+        return string.getBytes();
     }
 
     public Team getTeam() {
