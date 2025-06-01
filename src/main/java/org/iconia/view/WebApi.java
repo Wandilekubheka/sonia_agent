@@ -17,7 +17,7 @@ public class WebApi {
     }
 
     /**
-     * Starts the Javalin server on port 7000 and sets up the endpoint for handling car requests.
+     * Starts the Javalin server on port 7000 and sets up the endpoint for handling whatsapp requests
      */
     public void start() {
         app.start(7000);

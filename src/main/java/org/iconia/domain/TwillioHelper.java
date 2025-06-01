@@ -10,13 +10,18 @@ public class TwillioHelper {
         Twilio.init(accountSID, authToken);
     }
 
-    public void sendMessage(String to, String content,String from) {
-         Message
-                .creator(
-                        new PhoneNumber(from),
-                        new PhoneNumber(to),
-                        content
-                )
-                .create();
+    public void sendMessage(String from, String to, String content) {
+        try{
+            Message
+                    .creator(
+                            new PhoneNumber(to),
+                            new PhoneNumber(from),
+                            content
+                    )
+                    .create();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
