@@ -23,6 +23,8 @@ public class DatabaseTest {
         team.setLeaderNumber("+43264");
         team.setTag("sd");
         team.setTournament(intTournament);
+        team.setLogo("a logo".getBytes());
+
         // verify if required team data is complete
         assertTrue(team.isTeamComplete());
         try {

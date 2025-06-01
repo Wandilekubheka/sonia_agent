@@ -29,10 +29,14 @@ public class Team implements IntTeam {
     @DatabaseField
     private String tag;
 
-    public Team(int id, String name, String leaderNumber) {
+    public Team(int id, String name, String leaderNumber, String instagram, byte[] image, IntTournament tournament, String tag) {
         this.id = id;
         this.name = name;
         this.leaderNumber = leaderNumber;
+        this.instagram = instagram;
+        this.image = image;
+        this.tournament = tournament;
+        this.tag = tag;
     }
 
     public Team() {}
