@@ -16,7 +16,7 @@ public class DatabaseTest {
     public void testAddTeamToDatabase() {
         // create a tournament and a team
         DatabaseAccess db = new DatabaseAccess();
-        IntTournament intTournament = new IntTournament("retro","21 May 2025");
+        IntTournament intTournament = new IntTournament("retro","2 June 2025","girls tournament",4);
         Team team = new Team();
         team.setName("Team 1");
         team.setInstagram("Instagram 1");
@@ -47,7 +47,7 @@ public class DatabaseTest {
     public void testAddTournamentToDatabase() {
         // testing if we can create team
         DatabaseAccess db = new DatabaseAccess();
-        IntTournament intTournament = new IntTournament("retro","21 May 2025");
+        IntTournament intTournament = new IntTournament("retro","21 June 2025","boys tournament",4);
         try{
             int prevTournamentSize = db.getIntTournaments().length;
             db.setTournament(intTournament);

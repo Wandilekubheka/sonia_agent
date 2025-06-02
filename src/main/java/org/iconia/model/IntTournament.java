@@ -19,13 +19,18 @@ public class IntTournament {
         @DatabaseField
         private int maxSize;
 
+        @DatabaseField
+        private String description;
+
 
         // for the sql
         public IntTournament() {}
 
-        public IntTournament(String name, String date) {
+        public IntTournament(String name, String date,String description, int maxSize) {
                 this.name = name;
                 this.date = date;
+                this.description = description;
+                this.maxSize = maxSize;
         }
 
         // Getters and setters
@@ -49,5 +54,13 @@ public class IntTournament {
 
     public void setMaxSize(int maxSize) {
         this.maxSize = maxSize;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

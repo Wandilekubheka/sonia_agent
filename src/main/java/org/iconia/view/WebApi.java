@@ -22,7 +22,6 @@ public class WebApi {
     public void start() {
         app.start(7000);
         app.post("/", contextHandler::handleReceiveData);
-        app.get("/", contextHandler::handleSendData);
     }
 
     /**

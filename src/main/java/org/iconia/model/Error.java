@@ -11,7 +11,7 @@ public class Error {
 
     public static String setTeamError = "failed to set team";
     public  static String getTeamError = "failed to get getTeam";
-    public static String isTournamentStatusError = "failed to isTournament status";
+    public static String isTournamentStatusError = "failed to get Tournament status";
 
 
 }
