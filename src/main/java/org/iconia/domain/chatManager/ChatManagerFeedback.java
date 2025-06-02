@@ -12,6 +12,8 @@ public class ChatManagerFeedback {
 
     public static String invalidJoinCommandMessage = "⚠️ Oops! That join command isn't valid. Try something like: join 2";
 
+    public static String onlyAcceptImages = "⚠️ I can only accept images. Please resend with a valid image file.";
+    public static String onlyAcceptOneMedia = "🚫 Just one image at a time, please! Try again with a single file.";
 
     public static String unknownErrorMessage = "😕 Oops! An unexpected error occurred. Try again in a moment.";
 

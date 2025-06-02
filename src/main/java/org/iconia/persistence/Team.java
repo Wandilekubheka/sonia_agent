@@ -21,15 +21,15 @@ public class Team implements IntTeam {
     @DatabaseField
     private String instagram;
 
-    @DatabaseField(dataType = com.j256.ormlite.field.DataType.BYTE_ARRAY)
-    private byte[] image;
+    @DatabaseField
+    private String image;
     @DatabaseField(foreign = true, columnName = "tournament_id", foreignAutoRefresh = true)
     private IntTournament tournament;
 
     @DatabaseField
     private String tag;
 
-    public Team(int id, String name, String leaderNumber, String instagram, byte[] image, IntTournament tournament, String tag) {
+    public Team(int id, String name, String leaderNumber, String instagram, String image, IntTournament tournament, String tag) {
         this.id = id;
         this.name = name;
         this.leaderNumber = leaderNumber;
@@ -51,7 +51,14 @@ public class Team implements IntTeam {
     public String getName() { return name; }
 
     @Override
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        if(!isLink(name)) {
+            this.name = name;
+        }
+        else{
+            throw new IllegalArgumentException("team name can't be a link");
+        }
+    }
 
     @Override
     public String getTag() { return tag; }
@@ -60,17 +67,30 @@ public class Team implements IntTeam {
     public void setTag(String tag) { this.tag = tag; }
 
     @Override
-    public byte[] getLogo() { return image; }
+    public String getLogo() { return image; }
 
 
     @Override
-    public void setLogo(byte[] logo) { this.image = logo; }
+    public void setLogo(String logoLink) {
+        if (isLink(logoLink)) {
+            this.image = logoLink;
+        } else {
+            throw new IllegalArgumentException("we couldn't update the logo");
+        }
+    }
+
 
     @Override
     public String getInstagram() { return instagram; }
 
     @Override
-    public void setInstagram(String insta) { this.instagram = insta; }
+    public void setInstagram(String insta) {
+        if(insta.startsWith("@") && insta.split(" ").length == 1){
+            this.instagram = insta;
+        }else{
+            throw new IllegalArgumentException("we couldn't update the instagram your, please start with @");
+        }
+   }
 
     @Override
     public String getLeaderNumber() { return leaderNumber; }
@@ -81,6 +101,10 @@ public class Team implements IntTeam {
     @Override
     public boolean isTeamComplete() {
         return name != null && leaderNumber != null && instagram != null && tag != null && image != null && tournament != null;
+    }
+
+    private boolean isLink(String link){
+        return link != null && link.toUpperCase().startsWith("HTTP");
     }
 
     @Override

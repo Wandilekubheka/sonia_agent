@@ -3,9 +3,7 @@ package org.iconia.domain.chatManager;
 import org.iconia.model.IntTournament;
 import org.iconia.persistence.Team;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ChatManager {
@@ -13,61 +11,73 @@ public class ChatManager {
      * valid team
      * */
     private String feedbackMessage;
+    private IntTournament tournament;
 
     private final Map<String,Team> teams = new HashMap<String,Team>();
-    // Static instance (eager initialization)
-    private  IntTournament intTournament;
 
-    public ChatManager(IntTournament intTournament) {
-        this.intTournament = intTournament;
+    public ChatManager(IntTournament tournament) {
+        this.tournament = tournament;
     }
 
-    // Private constructor prevents external instantiation
 
 
     public void init(String leaderNumber) {
         teams.putIfAbsent(leaderNumber, new Team());
         Team team = teams.get(leaderNumber);
         team.setLeaderNumber(leaderNumber);
+        team.setTournament(tournament);
     }
 
     public boolean teamUpdated(String message,String leaderNumber) {
+
         Team team = teams.get(leaderNumber);
 
 
               if (team.getTag() == null) {
-                team.setTag(message);
-                feedbackMessage = ChatManagerFeedback.feedbackMessage2;
+                  try{
+                      team.setTag(message);
+                      feedbackMessage = ChatManagerFeedback.feedbackMessage2;
+                  }catch (IllegalArgumentException e){
+                      feedbackMessage = e.getMessage();
+                  }
+
                 //update team members
                 // might throw an unhandled error but we shall see.
             }else if (team.getName() == null) {
-                  team.setName(message);
-                  feedbackMessage = ChatManagerFeedback.feedbackMessage3;
+                  try{
+                      team.setName(message);
+                      feedbackMessage = ChatManagerFeedback.feedbackMessage3;
+                  }catch (IllegalArgumentException e){
+                      feedbackMessage = e.getMessage();
+                  }
+
                   //update team logo
                   // might throw an unhandled error but we shall see.
               }else if (team.getInstagram() == null) {
-                  team.setInstagram(message);
-                  feedbackMessage = ChatManagerFeedback.feedbackMessage5;
-                  //update team logo
-                  team.setLogo(stringToByte("dummy image"));
-                  // might throw an unhandled error but we shall see.
+                  try{
+                      team.setInstagram(message);
+                      feedbackMessage = ChatManagerFeedback.feedbackMessage4;
+                  }catch (IllegalArgumentException e){
+                      feedbackMessage = e.getMessage();
+                  }
+
               }
 
-//              else if (messagesFromUser.size() ==3) {
-//                team.setLogo(stringToByte(message));
-//                feedbackMessage = ChatManagerFeedback.feedbackMessage5;
-//                //update team members
-//                messagesFromUser.add(message);
-//                // might throw an unhandled error but we shall see.
-//            }
+              else if (team.getLogo() == null) {
+                  try{
+                      team.setLogo(message);
+                      feedbackMessage = ChatManagerFeedback.feedbackMessage5;
+                  }catch (IllegalArgumentException e){
+                      feedbackMessage = e.getMessage();
+                  }
+
+            }
         // update team
         teams.put(leaderNumber, team);
        return team.isTeamComplete();
     }
 
-    private byte[] stringToByte(String string) {
-        return string.getBytes();
-    }
+
 
     public Team getTeam(String leaderNumber) {
         Team team = teams.get(leaderNumber);

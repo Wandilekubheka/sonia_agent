@@ -8,13 +8,14 @@ public interface IntTeam {
     public String getTag();
     public void setTag(String tag);
 
-    public byte[] getLogo();
-    public void setLogo(byte[] logo);
+    public String getLogo();
+    public void setLogo(String logo);
 
     public String getInstagram();
     public void setInstagram(String insta);
     public String getLeaderNumber();
     public void setLeaderNumber(String leaderNumber);
+    public void setTournament(IntTournament tournament);
 
     public boolean isTeamComplete();
 
