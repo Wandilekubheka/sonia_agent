@@ -5,6 +5,7 @@ import java.sql.SQLException;
 public interface DatabaseAccessModel {
     Team getTeam() throws SQLException;
 
+
     void setTeam(Team team) throws SQLException;
 
 

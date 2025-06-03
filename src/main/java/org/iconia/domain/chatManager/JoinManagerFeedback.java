@@ -1,6 +1,6 @@
 package org.iconia.domain.chatManager;
 
-public class ChatManagerFeedback {
+public class JoinManagerFeedback {
     public static String feedbackMessage1 = "✅ Great job! What’s your team tag?";
     public static String feedbackMessage2 = "🏷️ Awesome! Now, send us your team name.";
     public static String feedbackMessage3 = "📸 Nice! Drop your team’s Instagram handle.";

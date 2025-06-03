@@ -6,7 +6,7 @@ import org.iconia.persistence.Team;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChatManager {
+public class JoinManager {
     private final Map<String, Team> teams = new HashMap<String, Team>();
     /*This class is responsible of keeping track of user message history in order to create
      * valid team
@@ -14,7 +14,7 @@ public class ChatManager {
     private String feedbackMessage;
     private IntTournament tournament;
 
-    public ChatManager(IntTournament tournament) {
+    public JoinManager(IntTournament tournament) {
         this.tournament = tournament;
     }
 
@@ -26,52 +26,7 @@ public class ChatManager {
         team.setTournament(tournament);
     }
 
-    public boolean tournamentUpdated(String message, String leaderNumber) {
 
-        Team team = teams.get(leaderNumber);
-
-
-        if (team.getTag() == null) {
-            try {
-                team.setTag(message);
-                feedbackMessage = ChatManagerFeedback.feedbackMessage2;
-            } catch (IllegalArgumentException e) {
-                feedbackMessage = e.getMessage();
-            }
-
-            //update team members
-            // might throw an unhandled error but we shall see.
-        } else if (team.getName() == null) {
-            try {
-                team.setName(message);
-                feedbackMessage = ChatManagerFeedback.feedbackMessage3;
-            } catch (IllegalArgumentException e) {
-                feedbackMessage = e.getMessage();
-            }
-
-            //update team logo
-            // might throw an unhandled error but we shall see.
-        } else if (team.getInstagram() == null) {
-            try {
-                team.setInstagram(message);
-                feedbackMessage = ChatManagerFeedback.feedbackMessage4;
-            } catch (IllegalArgumentException e) {
-                feedbackMessage = e.getMessage();
-            }
-
-        } else if (team.getLogo() == null) {
-            try {
-                team.setLogo(message);
-                feedbackMessage = ChatManagerFeedback.feedbackMessage5;
-            } catch (IllegalArgumentException e) {
-                feedbackMessage = e.getMessage();
-            }
-
-        }
-        // update team
-        teams.put(leaderNumber, team);
-        return team.isTeamComplete();
-    }
 
     public boolean teamUpdated(String message, String leaderNumber) {
 
@@ -81,7 +36,7 @@ public class ChatManager {
         if (team.getTag() == null) {
             try {
                 team.setTag(message);
-                feedbackMessage = ChatManagerFeedback.feedbackMessage2;
+                feedbackMessage = JoinManagerFeedback.feedbackMessage2;
             } catch (IllegalArgumentException e) {
                 feedbackMessage = e.getMessage();
             }
@@ -91,7 +46,7 @@ public class ChatManager {
         } else if (team.getName() == null) {
             try {
                 team.setName(message);
-                feedbackMessage = ChatManagerFeedback.feedbackMessage3;
+                feedbackMessage = JoinManagerFeedback.feedbackMessage3;
             } catch (IllegalArgumentException e) {
                 feedbackMessage = e.getMessage();
             }
@@ -101,7 +56,7 @@ public class ChatManager {
         } else if (team.getInstagram() == null) {
             try {
                 team.setInstagram(message);
-                feedbackMessage = ChatManagerFeedback.feedbackMessage4;
+                feedbackMessage = JoinManagerFeedback.feedbackMessage4;
             } catch (IllegalArgumentException e) {
                 feedbackMessage = e.getMessage();
             }
@@ -109,7 +64,7 @@ public class ChatManager {
         } else if (team.getLogo() == null) {
             try {
                 team.setLogo(message);
-                feedbackMessage = ChatManagerFeedback.feedbackMessage5;
+                feedbackMessage = JoinManagerFeedback.feedbackMessage5;
             } catch (IllegalArgumentException e) {
                 feedbackMessage = e.getMessage();
             }

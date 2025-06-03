@@ -13,13 +13,16 @@ public class CommandHandler {
     private String command;
     private String arg;
     private String leaderNumber;
-    private ChatManager chatManager;
+    private JoinManager joinManager;
     private String feedback;
+    final private CreateManager createManager;
 
     public CommandHandler() {
         DatabaseAccessModel databaseAccessModel = new DatabaseAccess();
         tournamentTo = new Tournament(databaseAccessModel);
+        createManager = new CreateManager();
     }
+
 
     public void init(String leaderNumber) {
         this.leaderNumber = leaderNumber;
@@ -37,17 +40,17 @@ public class CommandHandler {
                     this.command = commands[0];
                     int number = Integer.parseInt(commands[1]);
                     IntTournament tournament = tournamentTo.getIntTournament(number);
-                    chatManager = new ChatManager(tournament);
-                    feedback = ChatManagerFeedback.feedbackMessage1;
+                    joinManager = new JoinManager(tournament);
+                    feedback = JoinManagerFeedback.feedbackMessage1;
                 } else {
-                    feedback = ChatManagerFeedback.unknownCommandMessage;
+                    feedback = JoinManagerFeedback.unknownCommandMessage;
 
                 }
 
             } catch (NumberFormatException e) {
-                feedback = ChatManagerFeedback.invalidJoinCommandMessage;
+                feedback = JoinManagerFeedback.invalidJoinCommandMessage;
             } catch (IllegalArgumentException e) {
-                feedback = ChatManagerFeedback.unknownCommandMessage;
+                feedback = JoinManagerFeedback.unknownCommandMessage;
             } catch (RuntimeException e) {
                 feedback = e.getMessage();
             }
@@ -57,7 +60,7 @@ public class CommandHandler {
             Commands.valueOf(command);
 
         } catch (IllegalArgumentException e) {
-            feedback = ChatManagerFeedback.unknownCommandMessage;
+            feedback = JoinManagerFeedback.unknownCommandMessage;
             return;
 
         }
@@ -81,42 +84,50 @@ public class CommandHandler {
                 feedback = viewTournamentsList();
             }
             case create -> {
+
                 feedback = createTournament();
             }
 
             default -> {
-                feedback = ChatManagerFeedback.unknownCommandMessage;
+                feedback = JoinManagerFeedback.unknownCommandMessage;
             }
         }
     }
 
     private String helpCommand() {
-        return ChatManagerFeedback.welcomeMessage;
+        return JoinManagerFeedback.welcomeMessage;
     }
 
     private String startCommand() {
 
 
-        return ChatManagerFeedback.welcomeMessage;
+        return JoinManagerFeedback.welcomeMessage;
 
     }
 
     public String createTournament() {
-        // yet to validate if user can create tournament
-        return ChatManagerFeedback.createTournamentInfo;
+        if (leaderNumber == null) {
+            return JoinManagerFeedback.unknownErrorMessage;
+        }
+        createManager.init(leaderNumber);
+        executing = !createManager.tournamentUpdated(command, leaderNumber);
+        if (!executing) {
+            this.command = null;
+        }
+        return createManager.getFeedbackMessage();
     }
 
     private String joinTournamentCommand() {
         if (arg == null || leaderNumber == null) {
-            return ChatManagerFeedback.unknownErrorMessage;
+            return JoinManagerFeedback.unknownErrorMessage;
         }
-        chatManager.init(leaderNumber);
-        executing = !chatManager.teamUpdated(arg, leaderNumber);
+        joinManager.init(leaderNumber);
+        executing = !joinManager.teamUpdated(arg, leaderNumber);
         if (!executing) {
-            tournamentTo.uploadTeam(chatManager.getTeam(leaderNumber));
+            tournamentTo.uploadTeam(joinManager.getTeam(leaderNumber));
             this.command = null;
         }
-        return chatManager.getFeedbackMessage();
+        return joinManager.getFeedbackMessage();
     }
 
     public String getFeedback() {
@@ -128,13 +139,13 @@ public class CommandHandler {
         try {
             tournaments = tournamentTo.getIntTournaments();
             if (tournaments == null) {
-                return ChatManagerFeedback.unknownErrorMessage;
+                return JoinManagerFeedback.unknownErrorMessage;
             } else if (tournaments.length == 0) {
-                return ChatManagerFeedback.noActiveTournamentsMessage;
+                return JoinManagerFeedback.noActiveTournamentsMessage;
             }
             return Tournament.viewTournamentsListAsString(tournaments);
         } catch (SQLException e) {
-            return ChatManagerFeedback.unknownErrorMessage;
+            return JoinManagerFeedback.unknownErrorMessage;
         }
 
 

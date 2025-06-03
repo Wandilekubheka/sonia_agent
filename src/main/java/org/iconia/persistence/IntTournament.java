@@ -23,6 +23,7 @@ public class IntTournament {
     private String description;
 
 
+
     // for the sql
     public IntTournament() {
     }
@@ -59,7 +60,6 @@ public class IntTournament {
     public void setDate(String date) {
         this.date = date;
     }
-
 
     public int getMaxSize() {
         return maxSize;
