@@ -1,74 +1,20 @@
 package org.iconia.domain.hostManager;
 
 
+import org.iconia.domain.chatManager.ChatManagerFeedback;
 import org.iconia.model.Error;
-import org.iconia.model.IntTournament;
 import org.iconia.persistence.DatabaseAccessModel;
+import org.iconia.persistence.IntTournament;
 import org.iconia.persistence.Team;
 
 import java.sql.SQLException;
 
-public class Tournament{
+public class Tournament {
 
     DatabaseAccessModel dbModel;
-    IntTournament intTournament;
 
-    public Tournament(DatabaseAccessModel dbModel){
+    public Tournament(DatabaseAccessModel dbModel) {
         this.dbModel = dbModel;
-    }
-
-
-    public boolean isTournamentActive() {
-        try{
-            return dbModel.isTournamentActive();
-
-        }catch (Exception e){
-            throw new RuntimeException(Error.isTournamentStatusError);
-        }
-    }
-
-    public IntTournament getIntTournament() {
-        if(intTournament == null){
-            throw new RuntimeException(Error.isTournamentStatusError);
-        }
-        return intTournament;
-    }
-    public IntTournament getIntTournament(int id) throws SQLException {
-        intTournament = dbModel.getIntTournament(id);
-        return intTournament;
-    }
-
-
-    public IntTournament[] getIntTournaments() throws SQLException {
-        return dbModel.getIntTournaments();
-    }
-
-
-
-    public String getTournamentDate(int id) {
-        try{
-            return dbModel.getTournamentDate(id);
-
-        }catch (Exception e){
-            throw new RuntimeException(Error.getTournamentDateError);
-        }
-    }
-
-    public void uploadteam(Team team) {
-        try{
-            dbModel.setTeam(team);
-        }catch (Exception e){
-            throw new RuntimeException(Error.updateTeamError);
-        }
-    }
-
-    public Team[] getTeams() {
-        try{
-            return dbModel.getTeams(getIntTournament());
-
-        }catch (Exception e){
-            throw new RuntimeException(Error.getTeamError);
-        }
     }
 
     public static String viewTournamentsListAsString(IntTournament[] intTournaments) {
@@ -89,6 +35,7 @@ public class Tournament{
         return result.toString();
 
     }
+
     public static String viewTeamsListAsString(Team[] teams) {
         StringBuilder result = new StringBuilder();
 
@@ -106,6 +53,57 @@ public class Tournament{
 
         return result.toString();
 
+    }
+
+    public boolean isTournamentActive() {
+        try {
+            return dbModel.isTournamentActive();
+
+        } catch (Exception e) {
+            throw new RuntimeException(Error.isTournamentStatusError);
+        }
+    }
+
+    public IntTournament getIntTournament(int id) {
+        try {
+            return dbModel.getIntTournament(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(Error.isTournamentStatusError);
+        }
+    }
+
+    public IntTournament[] getIntTournaments() throws SQLException {
+        return dbModel.getIntTournaments();
+    }
+
+    public String getTournamentDate(int id) {
+        try {
+            return dbModel.getTournamentDate(id);
+
+        } catch (Exception e) {
+            throw new RuntimeException(Error.getTournamentDateError);
+        }
+    }
+
+    public void uploadTeam(Team team) {
+        try {
+            dbModel.setTeam(team);
+        } catch (SQLException e) {
+            String s = ChatManagerFeedback.unknownErrorMessage;
+            if (e.getMessage().contains("UNIQUE")) {
+                s = ChatManagerFeedback.teamExistErrorMessage;
+            }
+            throw new RuntimeException(s);
+        }
+    }
+
+    public Team[] getTeams(int tournamentId) {
+        try {
+            return dbModel.getTeams(getIntTournament(tournamentId));
+
+        } catch (Exception e) {
+            throw new RuntimeException(Error.getTeamError);
+        }
     }
 
 }

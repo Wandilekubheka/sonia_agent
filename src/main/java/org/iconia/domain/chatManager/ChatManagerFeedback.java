@@ -17,7 +17,11 @@ public class ChatManagerFeedback {
 
     public static String unknownErrorMessage = "😕 Oops! An unexpected error occurred. Try again in a moment.";
 
+    public static String unknownCommandMessage = "🤔 I didn't understand that command. If you have a cool idea, feel free to contact my developer with your suggestion!";
+
+    public static String teamExistErrorMessage = "😕 Oops! this team already part-taking in this tournament.";
     public static String welcomeMessage = "👋 Hey there!\nI’m Iconia, your tournament assistant 🤖. I’ll help you join exciting Dominators tournaments!\n\nHere’s what you can do:\n\n🔍 Type `view` – to see all available tournaments\n✅ Type `join [tournament_id]` – to enter a tournament\n\nLet the games begin! 🏆💥";
+    public static String createTournamentInfo = "📢 Want to create your own tournament? Contact +235435 to get started.\n🛠️ Self-service tournament creation is coming soon!";
 
 
 }

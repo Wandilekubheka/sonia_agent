@@ -5,27 +5,24 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import org.iconia.model.IntTournament;
 
 import java.sql.SQLException;
 
-public class DatabaseAccess implements DatabaseAccessModel{
+public class DatabaseAccess implements DatabaseAccessModel {
     Dao<Team, Integer> teamDao;
     Dao<IntTournament, Integer> tournamentsDao;
 
 
-
-    public DatabaseAccess(){
+    public DatabaseAccess() {
         String DB_URL = "jdbc:sqlite:teams.db";
 
         try (ConnectionSource connectionSource = new JdbcConnectionSource(DB_URL)) {
-            teamDao= DaoManager.createDao(connectionSource, Team.class);
-            tournamentsDao= DaoManager.createDao(connectionSource, IntTournament.class);
+            teamDao = DaoManager.createDao(connectionSource, Team.class);
+            tournamentsDao = DaoManager.createDao(connectionSource, IntTournament.class);
 
             // Create the table if it doesn't exist
             TableUtils.createTableIfNotExists(connectionSource, Team.class);
             TableUtils.createTableIfNotExists(connectionSource, IntTournament.class);
-
 
 
         } catch (Exception e) {
@@ -44,9 +41,8 @@ public class DatabaseAccess implements DatabaseAccessModel{
     }
 
 
-
     @Override
-    public Team[] getTeams(IntTournament tournament)  throws SQLException{
+    public Team[] getTeams(IntTournament tournament) throws SQLException {
         return teamDao.queryBuilder()
                 .where()
                 .eq("tournament_id", tournament.getId())
@@ -54,7 +50,7 @@ public class DatabaseAccess implements DatabaseAccessModel{
     }
 
     @Override
-    public String getTournamentDate(int id)  throws SQLException{
+    public String getTournamentDate(int id) throws SQLException {
         IntTournament tournament = tournamentsDao.queryForId(id);
         return tournament.getDate();
     }
@@ -67,11 +63,10 @@ public class DatabaseAccess implements DatabaseAccessModel{
 
 
     @Override
-    public void setTournamentDate(String tournamentDate,IntTournament tournament) throws SQLException {
+    public void setTournamentDate(String tournamentDate, IntTournament tournament) throws SQLException {
         tournament.setDate(tournamentDate);
 
     }
-
 
 
     @Override
@@ -96,7 +91,7 @@ public class DatabaseAccess implements DatabaseAccessModel{
 
     @Override
     public boolean isTournamentActive() throws SQLException {
-       return getIntTournaments().length != 0;
+        return getIntTournaments().length != 0;
     }
 
     @Override

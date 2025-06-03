@@ -3,6 +3,7 @@ package org.iconia.domain;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+
 public class TwillioHelper {
 
 
@@ -11,7 +12,7 @@ public class TwillioHelper {
     }
 
     public void sendMessage(String from, String to, String content) {
-        try{
+        try {
             Message
                     .creator(
                             new PhoneNumber(to),

@@ -1,18 +1,16 @@
 package org.iconia.persistence;
 
-import org.iconia.domain.hostManager.Tournament;
-import org.iconia.model.IntTournament;
-
 import java.sql.SQLException;
 
 public interface DatabaseAccessModel {
     Team getTeam() throws SQLException;
-    void setTeam(Team team)throws SQLException;
+
+    void setTeam(Team team) throws SQLException;
 
 
-    Team[] getTeams(IntTournament tournament)  throws SQLException;
+    Team[] getTeams(IntTournament tournament) throws SQLException;
 
-    String getTournamentDate(int id)throws SQLException;
+    String getTournamentDate(int id) throws SQLException;
 
 
     void setTournament(IntTournament tournament) throws SQLException;
@@ -26,6 +24,7 @@ public interface DatabaseAccessModel {
 
     IntTournament getIntTournament(int id) throws SQLException;
 
-    boolean isTournamentActive()throws SQLException;
+    boolean isTournamentActive() throws SQLException;
+
     IntTournament[] getIntTournaments() throws SQLException;
 }

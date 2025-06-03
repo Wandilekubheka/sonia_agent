@@ -17,14 +17,6 @@ public class WebApi {
     }
 
     /**
-     * Starts the Javalin server on port 7000 and sets up the endpoint for handling whatsapp requests
-     */
-    public void start() {
-        app.start(7000);
-        app.post("/", contextHandler::handleReceiveData);
-    }
-
-    /**
      * Main method to start the WebApi server.
      *
      * @param args command line arguments
@@ -32,6 +24,14 @@ public class WebApi {
     public static void main(String[] args) {
         WebApi webApi = new WebApi();
         webApi.start();
+    }
+
+    /**
+     * Starts the Javalin server on port 7000 and sets up the endpoint for handling whatsapp requests
+     */
+    public void start() {
+        app.start(7000);
+        app.post("/", contextHandler::handleReceiveData);
     }
 
     /**
