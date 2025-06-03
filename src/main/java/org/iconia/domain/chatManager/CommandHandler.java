@@ -100,7 +100,6 @@ public class CommandHandler {
 
     private String startCommand() {
 
-
         return JoinManagerFeedback.welcomeMessage;
 
     }
@@ -109,8 +108,10 @@ public class CommandHandler {
         if (leaderNumber == null) {
             return JoinManagerFeedback.unknownErrorMessage;
         }
+        // use leader number to keep track of which chat we on
         createManager.init(leaderNumber);
         executing = !createManager.tournamentUpdated(command, leaderNumber);
+        // clear command exectution
         if (!executing) {
             this.command = null;
         }
