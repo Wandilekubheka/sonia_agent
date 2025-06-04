@@ -23,7 +23,7 @@ public class Display {
 
     void displayText(String from, String to, String text) {
         if (helper != null) {
-            helper.sendMessage(from, to, text);
+            helper.sendMessage(to, from, text);
         } else {
             System.out.println(text);
         }

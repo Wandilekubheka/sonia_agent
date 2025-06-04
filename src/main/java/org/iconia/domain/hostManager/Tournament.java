@@ -1,7 +1,7 @@
 package org.iconia.domain.hostManager;
 
 
-import org.iconia.domain.chatManager.ChatManagerFeedback;
+import org.iconia.model.JoinManagerFeedback;
 import org.iconia.model.Error;
 import org.iconia.persistence.DatabaseAccessModel;
 import org.iconia.persistence.IntTournament;
@@ -89,12 +89,17 @@ public class Tournament {
         try {
             dbModel.setTeam(team);
         } catch (SQLException e) {
-            String s = ChatManagerFeedback.unknownErrorMessage;
+            String s = JoinManagerFeedback.unknownErrorMessage;
             if (e.getMessage().contains("UNIQUE")) {
-                s = ChatManagerFeedback.teamExistErrorMessage;
+                s = JoinManagerFeedback.teamExistErrorMessage;
             }
             throw new RuntimeException(s);
         }
+    }
+
+    public void createTournament(IntTournament tournament) throws SQLException {
+        dbModel.setTournament(tournament);
+
     }
 
     public Team[] getTeams(int tournamentId) {

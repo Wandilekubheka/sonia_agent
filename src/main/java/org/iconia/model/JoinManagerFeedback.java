@@ -1,6 +1,6 @@
-package org.iconia.domain.chatManager;
+package org.iconia.model;
 
-public class ChatManagerFeedback {
+public class JoinManagerFeedback {
     public static String feedbackMessage1 = "✅ Great job! What’s your team tag?";
     public static String feedbackMessage2 = "🏷️ Awesome! Now, send us your team name.";
     public static String feedbackMessage3 = "📸 Nice! Drop your team’s Instagram handle.";
@@ -20,7 +20,7 @@ public class ChatManagerFeedback {
     public static String unknownCommandMessage = "🤔 I didn't understand that command. If you have a cool idea, feel free to contact my developer with your suggestion!";
 
     public static String teamExistErrorMessage = "😕 Oops! this team already part-taking in this tournament.";
-    public static String welcomeMessage = "👋 Hey there!\nI’m Iconia, your tournament assistant 🤖. I’ll help you join exciting Dominators tournaments!\n\nHere’s what you can do:\n\n🔍 Type `view` – to see all available tournaments\n✅ Type `join [tournament_id]` – to enter a tournament\n\nLet the games begin! 🏆💥";
+    public static String welcomeMessage = "👋 Hey there!\nI’m Iconia, your tournament assistant 🤖. I’ll help you join exciting Dominators tournaments!\n\nHere’s what you can do:\n\n🔍 Type `view` – to see all available tournaments\n Type `create` – to host a new tournaments\n✅ Type `join [tournament_id]` – to enter a tournament\n\nLet the games begin! 🏆💥";
     public static String createTournamentInfo = "📢 Want to create your own tournament? Contact +235435 to get started.\n🛠️ Self-service tournament creation is coming soon!";
 
 

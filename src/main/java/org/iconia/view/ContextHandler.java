@@ -4,7 +4,7 @@ package org.iconia.view;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.javalin.http.Context;
 import org.iconia.domain.TwillioHelper;
-import org.iconia.domain.chatManager.ChatManagerFeedback;
+import org.iconia.model.JoinManagerFeedback;
 import org.iconia.domain.chatManager.CommandHandler;
 
 /**
@@ -25,7 +25,6 @@ public class ContextHandler {
         }
         TwillioHelper twillioHelper = new TwillioHelper(twilliAcc, twilioKey);
         display = new Display(twillioHelper);
-
     }
 
 
@@ -47,10 +46,10 @@ public class ContextHandler {
                 if (mediaType.contains("image")) {
                     message = mediaUrl;
                 } else {
-                    display.displayText(to, from, ChatManagerFeedback.onlyAcceptImages);
+                    display.displayText(to, from, JoinManagerFeedback.onlyAcceptImages);
                 }
             } else {
-                display.displayText(to, from, ChatManagerFeedback.onlyAcceptOneMedia);
+                display.displayText(to, from, JoinManagerFeedback.onlyAcceptOneMedia);
             }
         }
 
