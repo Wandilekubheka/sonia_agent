@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class CommandHandler {
     final Tournament tournamentTo;
-    private boolean executing = false;
+    private boolean canExecute = true;
     private String command;
     private String arg;
     private String leaderNumber;
@@ -56,16 +56,16 @@ public class CommandHandler {
             }
             return;
         }
-        try {
-            Commands.valueOf(command);
 
+        if (canExecute) {
+            try {
+            Commands.valueOf(command);
+            this.command = command;
         } catch (IllegalArgumentException e) {
             feedback = JoinManagerFeedback.unknownCommandMessage;
             return;
-
         }
-        if (!executing) {
-            this.command = command;
+
         }
         switch (Commands.valueOf(this.command)) {
             case help -> {
@@ -84,7 +84,7 @@ public class CommandHandler {
                 feedback = viewTournamentsList();
             }
             case create -> {
-
+                arg = command;
                 feedback = createTournament();
             }
 
@@ -93,7 +93,6 @@ public class CommandHandler {
             }
         }
     }
-
     private String helpCommand() {
         return JoinManagerFeedback.welcomeMessage;
     }
@@ -105,14 +104,19 @@ public class CommandHandler {
     }
 
     public String createTournament() {
-        if (leaderNumber == null) {
+        if (leaderNumber == null || arg == null) {
             return JoinManagerFeedback.unknownErrorMessage;
+        }
+        if(createManager.getFeedbackMessage() == null){
+            createManager.setFeedbackMessage(CreateManagerFeedback.askTournamentName);
+            canExecute = false;
+            return createManager.getFeedbackMessage();
         }
         // use leader number to keep track of which chat we on
         createManager.init(leaderNumber);
-        executing = !createManager.tournamentUpdated(command, leaderNumber);
-        // clear command exectution
-        if (!executing) {
+        canExecute = createManager.tournamentUpdated(arg, leaderNumber);
+        // clear command execute
+        if (canExecute) {
             this.command = null;
         }
         return createManager.getFeedbackMessage();
@@ -122,9 +126,10 @@ public class CommandHandler {
         if (arg == null || leaderNumber == null) {
             return JoinManagerFeedback.unknownErrorMessage;
         }
+
         joinManager.init(leaderNumber);
-        executing = !joinManager.teamUpdated(arg, leaderNumber);
-        if (!executing) {
+        canExecute = !joinManager.teamUpdated(arg, leaderNumber);
+        if (!canExecute) {
             tournamentTo.uploadTeam(joinManager.getTeam(leaderNumber));
             this.command = null;
         }

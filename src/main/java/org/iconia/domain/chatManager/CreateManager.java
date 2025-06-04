@@ -17,31 +17,26 @@ public class CreateManager {
 
     public void init(String leaderNumber) {
         tournamentMap.putIfAbsent(leaderNumber, new IntTournament());
-        IntTournament tournament = tournamentMap.get(leaderNumber);
     }
 
     public boolean tournamentUpdated(String message, String leaderNumber) {
         IntTournament tournament = tournamentMap.get(leaderNumber);
-        if (tournament == null) {
-            feedbackMessage = CreateManagerFeedback.askTournamentName;
-            return false;
-        } else if (tournament.getDescription()== null) {
-            tournament.setName(message);
+        if (tournament.getName() == null) {
             feedbackMessage = CreateManagerFeedback.askTournamentDescription;
-        } else if (tournament.getMaxSize() == 0) {
+            tournament.setName(message);
+        } else if (tournament.getDescription()== null) {
             tournament.setDescription(message);
             feedbackMessage = CreateManagerFeedback.askTournamentMaxSize;
-        } else if (tournament.getDate() == null) {
+        } else if (tournament.getMaxSize() == 0) {
             try{
                 int size = Integer.parseInt(message);
                 tournament.setMaxSize(size);
-                feedbackMessage = CreateManagerFeedback.askTournamentDate;
+               feedbackMessage = CreateManagerFeedback.askTournamentDate;
             } catch (NumberFormatException e) {
                 throw new RuntimeException(e);
             }
-        } else{
+        } else if (tournament.getDate() == null) {
             tournament.setDate(message);
-            feedbackMessage = JoinManagerFeedback.feedbackMessage5;
         }
         tournamentMap.put(leaderNumber, tournament);
         return tournament.isValid();
@@ -57,6 +52,10 @@ public class CreateManager {
             throw new RuntimeException("team is not complete.");
         }
         return tournament;
+    }
+
+    public void setFeedbackMessage(String feedbackMessage) {
+        this.feedbackMessage = feedbackMessage;
     }
 
     public String getFeedbackMessage() {

@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class JoinManager {
     private final Map<String, Team> teams = new HashMap<String, Team>();
-    /*This class is responsible of keeping track of user message history in order to create
+    /*This class is respshonsible of keeping track of user message history in order to create
      * valid team
      * */
     private String feedbackMessage;
