@@ -1,5 +1,6 @@
 package org.iconia.domain.chatManager;
 
+import org.iconia.model.JoinManagerFeedback;
 import org.iconia.persistence.IntTournament;
 import org.iconia.persistence.Team;
 

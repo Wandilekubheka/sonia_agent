@@ -1,7 +1,7 @@
 package org.iconia.domain.chatManager;
 
+import org.iconia.model.CreateManagerFeedback;
 import org.iconia.persistence.IntTournament;
-import org.iconia.persistence.Team;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +37,7 @@ public class CreateManager {
             }
         } else if (tournament.getDate() == null) {
             tournament.setDate(message);
+            feedbackMessage = CreateManagerFeedback.feedbackMessage5;
         }
         tournamentMap.put(leaderNumber, tournament);
         return tournament.isValid();

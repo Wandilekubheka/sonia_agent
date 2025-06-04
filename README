@@ -1,0 +1,56 @@
+# Iconia
+
+Iconia is a Java-based application designed to manage team registrations and communications for a tournament or event. It uses modular domain-driven design, and includes support for Twilio to send messages (SMS or WhatsApp).
+
+---
+
+## 📁 Project Structure
+
+src/
+└── main/
+└── java/
+└── org.iconia/
+├── domain/
+│ ├── chatManager/ # Handles user message processing and flow control
+│ ├── hostManager/ # Tournament and Twilio integration logic
+├── model/ # Data models and feedback wrappers
+├── persistence/ # Database access logic
+├── view/ # Input/output handlers and the main entry point
+
+---
+
+## 📦 Features
+
+- Team creation and joining flow
+- Command parsing and feedback
+- Twilio integration for message delivery
+- Modular design with separation of concerns
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/iconia.git
+cd iconia
+2. Configure .env
+You must create a .env file at the project root for Twilio credentials:
+
+TWILIO_ACC=your_account_sid
+TWILIO_KEY=your_auth_token
+☝️ These credentials are required for sending messages through Twilio. Get them from Twilio Console.
+
+3. Build and Run
+Use your preferred Java IDE or CLI tool (like Maven or Gradle) to build and run the project.
+
+📞 Twilio Integration
+The TwilioHelper class under domain.hostManager manages all communication via Twilio.
+
+To send a message:
+TwilioHelper.sendMessage(to, body,theMessage);
+
+🧠 Credits
+Developed by Wandile.
+

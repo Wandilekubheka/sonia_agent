@@ -1,6 +1,8 @@
 package org.iconia.domain.chatManager;
 
 import org.iconia.domain.hostManager.Tournament;
+import org.iconia.model.CreateManagerFeedback;
+import org.iconia.model.JoinManagerFeedback;
 import org.iconia.persistence.DatabaseAccess;
 import org.iconia.persistence.DatabaseAccessModel;
 import org.iconia.persistence.IntTournament;
@@ -31,7 +33,7 @@ public class CommandHandler {
 
     public void executeCommand(String command) {
         command = command.toLowerCase();
-        if (command.split(" ").length == 2) {
+        if (canExecute && command.split(" ").length == 2) {
             String[] commands = command.split(" ");
             try {
                 // testing if its a valid command
@@ -42,9 +44,9 @@ public class CommandHandler {
                     IntTournament tournament = tournamentTo.getIntTournament(number);
                     joinManager = new JoinManager(tournament);
                     feedback = JoinManagerFeedback.feedbackMessage1;
+                    canExecute = false;
                 } else {
                     feedback = JoinManagerFeedback.unknownCommandMessage;
-
                 }
 
             } catch (NumberFormatException e) {
@@ -117,6 +119,11 @@ public class CommandHandler {
         canExecute = createManager.tournamentUpdated(arg, leaderNumber);
         // clear command execute
         if (canExecute) {
+            try {
+                tournamentTo.createTournament(createManager.getTournament(leaderNumber));
+            } catch (SQLException e) {
+                return JoinManagerFeedback.unknownErrorMessage;
+            }
             this.command = null;
         }
         return createManager.getFeedbackMessage();
@@ -124,12 +131,13 @@ public class CommandHandler {
 
     private String joinTournamentCommand() {
         if (arg == null || leaderNumber == null) {
+            canExecute = false;
             return JoinManagerFeedback.unknownErrorMessage;
         }
 
         joinManager.init(leaderNumber);
-        canExecute = !joinManager.teamUpdated(arg, leaderNumber);
-        if (!canExecute) {
+        canExecute = joinManager.teamUpdated(arg, leaderNumber);
+        if (canExecute) {
             tournamentTo.uploadTeam(joinManager.getTeam(leaderNumber));
             this.command = null;
         }
@@ -153,7 +161,5 @@ public class CommandHandler {
         } catch (SQLException e) {
             return JoinManagerFeedback.unknownErrorMessage;
         }
-
-
     }
 }

@@ -4,7 +4,7 @@ package org.iconia.view;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.javalin.http.Context;
 import org.iconia.domain.TwillioHelper;
-import org.iconia.domain.chatManager.JoinManagerFeedback;
+import org.iconia.model.JoinManagerFeedback;
 import org.iconia.domain.chatManager.CommandHandler;
 
 /**
@@ -23,8 +23,8 @@ public class ContextHandler {
         if (twilliAcc == null || twilliAcc.isEmpty() || twilioKey == null || twilioKey.isEmpty()) {
             throw new RuntimeException("TWILIO_KEY or TWILIO_ACC is empty");
         }
-//        TwillioHelper twillioHelper = new TwillioHelper(twilliAcc, twilioKey);
-        display = new Display();
+        TwillioHelper twillioHelper = new TwillioHelper(twilliAcc, twilioKey);
+        display = new Display(twillioHelper);
     }
 
 

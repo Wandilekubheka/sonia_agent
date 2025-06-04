@@ -1,7 +1,7 @@
 package org.iconia.domain.hostManager;
 
 
-import org.iconia.domain.chatManager.JoinManagerFeedback;
+import org.iconia.model.JoinManagerFeedback;
 import org.iconia.model.Error;
 import org.iconia.persistence.DatabaseAccessModel;
 import org.iconia.persistence.IntTournament;
