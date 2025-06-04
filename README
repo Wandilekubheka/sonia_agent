@@ -33,7 +33,7 @@ src/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/iconia.git
+git clone https://github.com/Wandilekubheka/sonia_agent.git
 cd iconia
 2. Configure .env
 You must create a .env file at the project root for Twilio credentials:
